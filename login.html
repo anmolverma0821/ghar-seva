@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login | GharSeva</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="auth-wrap">
+    <div class="auth-box">
+        <div class="logo" style="text-align:center;margin-bottom:10px">Ghar<span>Seva</span></div>
+        <h2 id="title">Welcome back</h2>
+
+        <div class="tabs">
+            <button id="tabLogin" class="active" onclick="switchTab('login')">Login</button>
+            <button id="tabSignup" onclick="switchTab('signup')">Sign Up</button>
+        </div>
+
+        <form onsubmit="submitAuth(event)">
+            <div class="input-group" id="nameGroup" style="display:none">
+                <label>Full Name</label>
+                <input type="text" id="aName" placeholder="Enter your name">
+            </div>
+            <div class="input-group">
+                <label>Email</label>
+                <input type="email" id="aEmail" placeholder="Enter your email" required>
+            </div>
+            <div class="input-group">
+                <label>Password</label>
+                <input type="password" id="aPass" placeholder="Enter password" minlength="6" required>
+            </div>
+            <button type="submit" class="submit-btn" id="authBtn">Login</button>
+        </form>
+
+        <div class="auth-msg" id="msg"></div>
+        <a href="index.html" class="back-link">← Back to home</a>
+    </div>
+</div>
+
+<script>
+let mode = "login";
+const users = () => JSON.parse(localStorage.getItem("gs_users") || "[]");
+
+function switchTab(m) {
+    mode = m;
+    document.getElementById("tabLogin").classList.toggle("active", m === "login");
+    document.getElementById("tabSignup").classList.toggle("active", m === "signup");
+    document.getElementById("nameGroup").style.display = m === "signup" ? "block" : "none";
+    document.getElementById("authBtn").textContent = m === "signup" ? "Create Account" : "Login";
+    document.getElementById("title").textContent = m === "signup" ? "Create your account" : "Welcome back";
+    document.getElementById("msg").textContent = "";
+}
+
+function say(text, ok) {
+    const m = document.getElementById("msg");
+    m.textContent = text;
+    m.className = "auth-msg " + (ok ? "ok" : "err");
+}
+
+function submitAuth(e) {
+    e.preventDefault();
+    const email = document.getElementById("aEmail").value.trim().toLowerCase();
+    const pass = document.getElementById("aPass").value;
+    const list = users();
+
+    if (mode === "signup") {
+        const name = document.getElementById("aName").value.trim();
+        if (!name) return say("Please enter your name.", false);
+        if (list.some(u => u.email === email)) return say("This email is already registered. Please login.", false);
+        list.push({ name, email, pass });
+        localStorage.setItem("gs_users", JSON.stringify(list));
+        localStorage.setItem("gs_user", JSON.stringify({ name, email }));
+    } else {
+        const u = list.find(u => u.email === email && u.pass === pass);
+        if (!u) return say("Wrong email or password.", false);
+        localStorage.setItem("gs_user", JSON.stringify({ name: u.name, email: u.email }));
+    }
+    say("Success! Redirecting...", true);
+    setTimeout(() => location.href = "index.html", 900);
+}
+</script>
+</body>
+</html>

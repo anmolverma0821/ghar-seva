@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Professional Login | GharSeva</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="auth-wrap" id="loginView">
+    <div class="auth-box">
+        <div class="logo" style="text-align:center;margin-bottom:10px">Ghar<span>Seva</span></div>
+        <h2>Professional Login</h2>
+        <form onsubmit="proLogin(event)">
+            <div class="input-group">
+                <label>Select Your Name</label>
+                <select id="proSel" required></select>
+            </div>
+            <div class="input-group">
+                <label>Registered Phone Number</label>
+                <input type="tel" id="proPhone" placeholder="Enter your phone number" required>
+            </div>
+            <button type="submit" class="submit-btn">Login</button>
+        </form>
+        <div class="auth-msg" id="msg"></div>
+        <a href="index.html" class="back-link">← Back to home</a>
+    </div>
+</div>
+
+<div id="inboxView" style="display:none">
+    <nav>
+        <div class="logo">Ghar<span>Seva</span> <small style="font-size:14px;color:#64748b">Professional</small></div>
+        <a href="#" class="login-btn" onclick="proLogout(event)">Logout</a>
+    </nav>
+    <section>
+        <div class="section-title">
+            <h2 id="welcome"></h2>
+            <p>Your new and past bookings</p>
+        </div>
+        <div class="inbox-wrap" style="margin-top:0"><div id="inboxList"></div></div>
+    </section>
+</div>
+
+<script>
+const professionals = {
+    "Plumbing":      { name: "Rajesh Kumar", phone: "+91 9810023501", icon: "🔧" },
+    "Electrician":   { name: "Amit Sharma",  phone: "+91 8229567942", icon: "⚡" },
+    "Home Cleaning": { name: "Muni Devi",    phone: "+91 9810547003", icon: "🧹" },
+    "AC Repair":     { name: "Vikram Singh", phone: "+91 9810015934", icon: "❄️" },
+    "Carpenter":     { name: "Mohan Lal",    phone: "+91 9819045635", icon: "🪚" },
+    "Painting":      { name: "Imran Khan",   phone: "+91 9810023567", icon: "🎨" }
+};
+const digits = s => s.replace(/\D/g, "").slice(-10);
+function esc(s) { const d = document.createElement("div"); d.textContent = s; return d.innerHTML; }
+function inbox() { try { return JSON.parse(localStorage.getItem("gs_pro_inbox") || "[]"); } catch (e) { return []; } }
+function who() { return sessionStorage.getItem("gs_pro"); }
+
+document.getElementById("proSel").innerHTML = Object.entries(professionals).map(([svc, p]) =>
+    '<option value="' + svc + '">' + p.icon + " " + esc(p.name) + " (" + svc + ")</option>").join("");
+
+function proLogin(e) {
+    e.preventDefault();
+    const svc = document.getElementById("proSel").value;
+    if (digits(document.getElementById("proPhone").value) !== digits(professionals[svc].phone)) {
+        const m = document.getElementById("msg");
+        m.textContent = "Phone number does not match."; m.className = "auth-msg err";
+        return;
+    }
+    sessionStorage.setItem("gs_pro", svc);
+    show();
+}
+function proLogout(e) { e.preventDefault(); sessionStorage.removeItem("gs_pro"); location.reload(); }
+
+function show() {
+    const svc = who();
+    if (!svc) return;
+    document.getElementById("loginView").style.display = "none";
+    document.getElementById("inboxView").style.display = "block";
+    document.getElementById("welcome").textContent = "Hello, " + professionals[svc].name + " 👋";
+    const msgs = inbox().filter(m => m.service === svc).reverse();
+    document.getElementById("inboxList").innerHTML = msgs.length ? msgs.map(m =>
+        '<div class="msg-card"><div class="msg-head"><b>' + (m.type === "Cancelled" ? "❌ Booking Cancelled" : "🔔 " + esc(m.type)) +
+        "</b><small>" + esc(m.sentAt) + "</small></div><pre>" + esc(m.text) + "</pre></div>").join("")
+        : '<p class="bk-empty">No booking messages yet.</p>';
+}
+show();
+</script>
+</body>
+</html>

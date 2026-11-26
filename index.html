@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>GharSeva | Home Services</title>
+
+    <!-- CSS File -->
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<nav>
+
+    <div class="logo">
+        Ghar<span>Seva</span>
+    </div>
+
+    <ul>
+        <li><a href="#home">Home</a></li>
+        <li><a href="#services">Services</a></li>
+        <li><a href="#booking">Book Service</a></li>
+        <li><a href="#my-bookings">My Bookings</a></li>
+        <li><a href="#professionals">Professionals</a></li>
+        <li><a href="#about">About</a></li>
+    </ul>
+
+    <div class="nav-right">
+        <a href="pro.html" class="pro-login-btn">👷 Professional Login</a>
+        <a href="login.html" class="login-btn" id="loginBtn">Login</a>
+    </div>
+
+</nav>
+
+
+<!-- HERO -->
+<div class="hero" id="home">
+
+    <div class="hero-text">
+
+        <h1>
+            Professional Services
+            <span>At Your Doorstep</span>
+        </h1>
+
+        <p>
+            Book trusted professionals for your home.
+            From cleaning and plumbing to electrical
+            repairs — everything is just one click away.
+        </p>
+
+        <button class="book-btn" onclick="goToBooking()">
+            Book a Service →
+        </button>
+
+    </div>
+
+    <div class="hero-card">
+
+        <div class="hero-icon">🏠</div>
+
+        <h3>Home Service Made Easy</h3>
+
+        <p>
+            Verified professionals,
+            transparent pricing and convenient
+            doorstep service.
+        </p>
+
+    </div>
+
+</div>
+
+
+<!-- SERVICES -->
+<section id="services">
+
+    <div class="section-title">
+
+        <h2>Our Services</h2>
+
+        <p>Choose the service you need</p>
+
+    </div>
+
+    <div class="services">
+
+        <div class="service">
+            <div class="service-icon">🔧</div>
+            <h3>Plumbing</h3>
+            <p>
+                Tap repair, pipe leakage,
+                bathroom and kitchen plumbing.
+            </p>
+            <div class="price">Starting ₹199</div>
+        </div>
+
+
+        <div class="service">
+            <div class="service-icon">⚡</div>
+            <h3>Electrician</h3>
+            <p>
+                Fan, switch, wiring,
+                lights and electrical repairs.
+            </p>
+            <div class="price">Starting ₹149</div>
+        </div>
+
+
+        <div class="service">
+            <div class="service-icon">🧹</div>
+            <h3>Home Cleaning</h3>
+            <p>
+                Professional cleaning for
+                rooms, kitchens and bathrooms.
+            </p>
+            <div class="price">Starting ₹399</div>
+        </div>
+
+
+        <div class="service">
+            <div class="service-icon">❄️</div>
+            <h3>AC Repair</h3>
+            <p>
+                AC servicing, repair,
+                installation and maintenance.
+            </p>
+            <div class="price">Starting ₹299</div>
+        </div>
+
+
+        <div class="service">
+            <div class="service-icon">🪚</div>
+            <h3>Carpenter</h3>
+            <p>
+                Furniture repair,
+                installation and custom work.
+            </p>
+            <div class="price">Starting ₹249</div>
+        </div>
+
+
+        <div class="service">
+            <div class="service-icon">🎨</div>
+            <h3>Painting</h3>
+            <p>
+                Interior and exterior painting
+                by experienced professionals.
+            </p>
+            <div class="price">Starting ₹999</div>
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- BOOKING -->
+<section class="booking-section" id="booking">
+
+    <div class="section-title">
+
+        <h2>Book a Service</h2>
+
+        <p>
+            Fill the details and we'll take care of the rest.
+        </p>
+
+    </div>
+
+
+    <div class="booking-box">
+
+        <!-- BOOKING FORM -->
+        <form id="bookingForm" onsubmit="bookService(event)">
+
+            <div class="form-row">
+
+                <div class="input-group">
+
+                    <label>Your Name</label>
+
+                    <input
+                        type="text"
+                        id="name"
+                        placeholder="Enter your name"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="input-group">
+
+                    <label>Phone Number</label>
+
+                    <input
+                        type="tel"
+                        id="phone"
+                        placeholder="Enter phone number"
+                        required
+                    >
+
+                </div>
+
+            </div>
+
+
+            <div class="input-group">
+
+                <label>Select Service</label>
+
+                <select id="service" required>
+
+                    <option value="">
+                        Choose a service
+                    </option>
+
+                    <option>Plumbing</option>
+                    <option>Electrician</option>
+                    <option>Home Cleaning</option>
+                    <option>AC Repair</option>
+                    <option>Carpenter</option>
+                    <option>Painting</option>
+
+                </select>
+
+            </div>
+
+
+            <div class="form-row">
+
+                <div class="input-group">
+
+                    <label>Preferred Date</label>
+
+                    <input
+                        type="date"
+                        id="date"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="input-group">
+
+                    <label>Preferred Time</label>
+
+                    <input
+                        type="time"
+                        id="time"
+                        required
+                    >
+
+                </div>
+
+            </div>
+
+
+            <div class="input-group">
+                <label>Your Location / Area</label>
+                <div class="loc-row">
+                    <input type="text" id="location" placeholder="e.g. Saket, Delhi" required>
+                    <button type="button" class="loc-btn" onclick="useMyLocation()">📍 Use my location</button>
+                </div>
+            </div>
+
+            <div class="input-group">
+
+                <label>Address</label>
+
+                <textarea
+                    id="address"
+                    placeholder="Enter your complete address"
+                    required
+                ></textarea>
+
+            </div>
+
+
+            <div class="input-group">
+
+                <label>Problem / Additional Details</label>
+
+                <textarea
+                    id="problem"
+                    placeholder="Tell us about the problem..."
+                ></textarea>
+
+            </div>
+
+
+            <button type="submit" class="submit-btn">
+                Confirm Booking
+            </button>
+
+        </form>
+
+    </div>
+
+</section>
+
+
+<!-- MY BOOKINGS -->
+<section id="my-bookings">
+    <div class="section-title">
+        <h2>My Bookings</h2>
+        <p>Track your upcoming and past bookings</p>
+    </div>
+    <div class="tabs bk-tabs">
+        <button id="tabUp" class="active" onclick="showBkTab('up')">Upcoming</button>
+        <button id="tabPast" onclick="showBkTab('past')">Past</button>
+    </div>
+    <div id="bookingsList"></div>
+</section>
+
+<!-- PROFESSIONALS -->
+<section id="professionals">
+    <div class="section-title">
+        <h2>Our Service Professionals</h2>
+        <p>A verified expert is assigned to every booking</p>
+    </div>
+    <div class="pros" id="prosList"></div>
+
+</section>
+
+<!-- WHY US -->
+<section id="about">
+
+    <div class="section-title">
+
+        <h2>Why Choose GharSeva?</h2>
+
+        <p>
+            We make home services simple and reliable.
+        </p>
+
+    </div>
+
+
+    <div class="why-us">
+
+        <div class="why-card">
+
+            <div>👨‍🔧</div>
+
+            <h3>Verified Experts</h3>
+
+            <p>
+                Professionals are verified
+                before joining our platform.
+            </p>
+
+        </div>
+
+
+        <div class="why-card">
+
+            <div>💰</div>
+
+            <h3>Transparent Pricing</h3>
+
+            <p>
+                Know the approximate price
+                before booking.
+            </p>
+
+        </div>
+
+
+        <div class="why-card">
+
+            <div>🛡️</div>
+
+            <h3>Safe & Reliable</h3>
+
+            <p>
+                Your safety and satisfaction
+                are our priority.
+            </p>
+
+        </div>
+
+
+        <div class="why-card">
+
+            <div>📞</div>
+
+            <h3>Easy Support</h3>
+
+            <p>
+                Get help whenever you
+                need it.
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- LOCATION -->
+<section class="booking-section" id="location-section">
+    <div class="section-title">
+        <h2>Our Location</h2>
+        <p>📍 Serving Delhi &amp; nearby areas</p>
+    </div>
+    <div class="map-wrap">
+        <iframe src="https://www.google.com/maps?q=Delhi,India&output=embed" loading="lazy" title="GharSeva location map"></iframe>
+    </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+
+    <div class="footer-content">
+
+        <div>
+
+            <h3>GharSeva</h3>
+
+            <p>
+                Trusted home services at your doorstep.
+                Making everyday life easier with technology.
+
+                <br><br>
+
+                GharSeva is your trusted platform for
+                convenient and reliable home services.
+                We make it easy for customers to find
+                and book skilled professionals for their
+                everyday household needs.
+            </p>
+
+        </div>
+
+
+        <div>
+
+            <h3>Services</h3>
+
+            <ul>
+                <li>Plumbing</li>
+                <li>Electrician</li>
+                <li>Cleaning</li>
+                <li>AC Repair</li>
+                <li>Carpenter</li>
+            </ul>
+
+        </div>
+
+
+        <div>
+
+            <h3>Contact</h3>
+
+            <ul>
+                <li>📞 +91 1122334455</li>
+                <li>✉ support@gharseva.com</li>
+                <li>📍 Delhi, India</li>
+            </ul>
+        </div>
+    </div>
+    <div class="copyright">© 2026 GharSeva. All rights reserved Anmol verma.</div>
+</footer>
+
+<!-- BOOKING SUCCESS POPUP -->
+<div class="popup" id="popup">
+    <div class="popup-box">
+        <div class="success">✅</div>
+        <h2>Submit Success!</h2>
+        <span class="status-badge">Status: Booking Confirmed</span>
+        <div id="confirmation"></div>
+        <button class="close-btn" onclick="closePopup()">Close</button>
+    </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
